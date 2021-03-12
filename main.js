@@ -66,7 +66,7 @@ $(function(){
 
   var previous = $(".prev");
   var next = $(".next");
-  var bullet = $("nav > i");
+  var bullet = $(".nav > i");
 
   // 1. evento click su classe .next
   next.click(
@@ -74,7 +74,6 @@ $(function(){
       nextImage();
     }
   );
-
 
   // 2. evento click su classe .prev
   previous.click(
@@ -84,4 +83,37 @@ $(function(){
   );
 
 
+  // 3. evento con arrow da tastiera
+  $(document).keydown(
+    function(e) {
+      // 3b con arrow right e arrow up incremento e vado all'immagine dopo
+      if (e.keyCode == 39 || e.keyCode == 38) {
+        // alert('Enter key pressed!');
+        nextImage();
+      // 3c con arrow left e arrow down decremento e vado all'immagine prima
+      } else if (e.keyCode == 37 || e.keyCode == 40){
+        // alert('Enter key pressed!');
+        previousImage();
+      }
+    }
+  );
+
+
+  // 4. evento con tastiera bullet
+  bullet.click(
+    function bulletAction() {
+      var activeImage = $(".images img.active");
+      var image = $(".images img");
+      var activeBullet = $(".nav .fas.fa-circle.active");
+      // 4a. setto una variabile con un indice dato dal bullet cliccato
+      var eq = bullet.index($(this));
+      // 4b. rimuovo le classi .active da immagini e bullet
+      activeBullet.removeClass("active");
+      activeImage.removeClass("active");
+      // 4c. aggiungo la classe .active a ciò che clicco con bullet e img correlati
+      $(this).addClass("active");
+      image.eq(eq).addClass("active");
+      console.log(image.eq(eq).addClass("active"));
+    }
+  );
 });
